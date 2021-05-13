@@ -12,7 +12,7 @@ CacheSetBRRIP::CacheSetBRRIP(
    : CacheSet(cache_type, associativity, blocksize)
    , m_rrip_numbits(Sim()->getCfg()->getIntArray(cfgname + "/brrip/bits", core_id))
    , m_rrip_max((1 << m_rrip_numbits) - 1)
-   , m_rrip_insert(m_rrip_max - 2)
+   , m_rrip_insert(m_rrip_max)
    , m_num_attempts(num_attempts)
    , m_replacement_pointer(0)
    , m_set_info(set_info)
