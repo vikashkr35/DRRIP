@@ -20,6 +20,7 @@
  /home/vikash/research/SniperHybridCache/common/core/memory_subsystem/cache/cache_set_round_robin.h \
  /home/vikash/research/SniperHybridCache/common/core/memory_subsystem/cache/cache_set_srrip.h \
  /home/vikash/research/SniperHybridCache/common/core/memory_subsystem/cache/cache_set_brrip.h \
+ /home/vikash/research/SniperHybridCache/common/core/memory_subsystem/cache/cache_set_drrip.h \
  /home/vikash/research/SniperHybridCache/common/system/simulator.h \
  /home/vikash/research/SniperHybridCache/common/misc/config.h \
  /home/vikash/research/SniperHybridCache/common/system/clock_skew_minimization_object.h \

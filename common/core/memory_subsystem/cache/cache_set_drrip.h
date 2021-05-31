@@ -13,7 +13,7 @@ class CacheSetDRRIP : public CacheSet
 
       UInt32 getReplacementIndex(CacheCntlr *cntlr);
       void updateReplacementIndex(UInt32 accessed_index);
-      int check_leader(UInt32 set_id)
+      int check_leader(UInt32 set_id);
    private:
       const UInt8 m_rrip_numbits;
       const UInt8 m_rrip_max;

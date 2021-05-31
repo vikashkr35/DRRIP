@@ -67,6 +67,8 @@ class CacheCntlr
    public:
       virtual bool isInLowerLevelCache(CacheBlockInfo *block_info) { return false; }
       virtual void incrementQBSLookupCost() {}
+      virtual bool isLastLevel(void) { return 0; }  //added
+      virtual UInt64 getNumaccess() { return 0; }    //added
 };
 
 #endif /* __CACHE_BLOCK_INFO_H__ */
