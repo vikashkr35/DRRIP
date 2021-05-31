@@ -2,7 +2,7 @@
 #include "simulator.h"
 #include "config.hpp"
 #include "log.h"
-
+#define BRRIP_MAX 32
 // B-RRIP: Bi-Modal Re-reference Interval Prediction policy
 
 CacheSetBRRIP::CacheSetBRRIP(
@@ -12,14 +12,16 @@ CacheSetBRRIP::CacheSetBRRIP(
    : CacheSet(cache_type, associativity, blocksize)
    , m_rrip_numbits(Sim()->getCfg()->getIntArray(cfgname + "/brrip/bits", core_id))
    , m_rrip_max((1 << m_rrip_numbits) - 1)
-   , m_rrip_insert(m_rrip_max)
+   , m_rrip_insert(m_rrip_max-1)
    , m_num_attempts(num_attempts)
    , m_replacement_pointer(0)
    , m_set_info(set_info)
+   , brrip_counter(0)   //added
 {
    m_rrip_bits = new UInt8[m_associativity];
    for (UInt32 i = 0; i < m_associativity; i++)
       m_rrip_bits[i] = m_rrip_insert;
+      
 }
 
 CacheSetBRRIP::~CacheSetBRRIP()
@@ -35,8 +37,14 @@ CacheSetBRRIP::getReplacementIndex(CacheCntlr *cntlr)
       if (!m_cache_block_info_array[i]->isValid())
       {
          // If there is an invalid line(s) in the set, regardless of the LRU bits of other lines, we choose the first invalid line to replace
-         // Prepare way for a new line: set prediction to 'long'
-         m_rrip_bits[i] = m_rrip_insert;
+         // Prepare way for a new line:
+         m_rrip_bits[i] = m_rrip_max;
+         
+         brrip_counter++;                              //every 32nd insert has RRIP long else distant 
+            if (brrip_counter == BRRIP_MAX)
+                brrip_counter = 0;
+            if (brrip_counter == 0)
+                m_rrip_bits[i] = m_rrip_insert;
          return i;
       }
    }
@@ -71,7 +79,13 @@ CacheSetBRRIP::getReplacementIndex(CacheCntlr *cntlr)
 
             m_replacement_pointer = (m_replacement_pointer + 1) % m_associativity;
             // Prepare way for a new line: set prediction to 'long'
-            m_rrip_bits[index] = m_rrip_insert;
+            m_rrip_bits[index] = m_rrip_max;
+         
+            brrip_counter++;                              //every 32nd insert has RRIP long else distant 
+            if (brrip_counter == BRRIP_MAX)
+                brrip_counter = 0;
+            if (brrip_counter == 0)
+                m_rrip_bits[index] = m_rrip_insert;
 
             m_set_info->incrementAttempt(attempt);
 
@@ -101,5 +115,5 @@ CacheSetBRRIP::updateReplacementIndex(UInt32 accessed_index)
    m_set_info->increment(m_rrip_bits[accessed_index]);
 
    if (m_rrip_bits[accessed_index] > 0)
-      m_rrip_bits[accessed_index]--;
+      m_rrip_bits[accessed_index] = 0;   //modefied
 }

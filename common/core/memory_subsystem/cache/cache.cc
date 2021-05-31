@@ -2,6 +2,12 @@
 #include "cache.h"
 #include "log.h"
 
+//global variables 
+	UInt32 m_glob_set_id;
+	UInt32 m_glob_epoch_ctr=0;
+	UInt32 m_glob_policy_flag=0;  ///BRRIP(flag==0),SRRIP(flag==1)
+	UInt64 m_glob_srrip_miss_ctr=0;
+	UInt64 m_glob_brrip_miss_ctr=0;
 // Cache class
 // constructors/destructors
 Cache::Cache(

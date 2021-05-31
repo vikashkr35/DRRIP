@@ -12,6 +12,13 @@
 #include "core.h"
 #include "fault_injection.h"
 
+
+//global variables 
+extern UInt32 m_glob_set_id;
+extern UInt32 m_glob_epoch_ctr=0;
+extern UInt32 m_glob_policy_flag=0;  ///BRRIP(flag==0),SRRIP(flag==1)
+extern UInt64 m_glob_srrip_miss_ctr=0;
+extern UInt64 m_glob_brrip_miss_ctr=0;
 // Define to enable the set usage histogram
 //#define ENABLE_SET_USAGE_HIST
 

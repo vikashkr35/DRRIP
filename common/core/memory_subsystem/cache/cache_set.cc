@@ -8,6 +8,7 @@
 #include "cache_set_round_robin.h"
 #include "cache_set_srrip.h"
 #include "cache_set_brrip.h"
+#include "cache_set_drrip.h"
 #include "cache_base.h"
 #include "log.h"
 #include "simulator.h"
@@ -168,6 +169,10 @@ CacheSet::createCacheSet(String cfgname, core_id_t core_id,
       case CacheBase::BRRIP_QBS:
          return new CacheSetBRRIP(cfgname, core_id, cache_type, associativity, blocksize, dynamic_cast<CacheSetInfoLRU*>(set_info), getNumQBSAttempts(policy, cfgname, core_id));
 
+      case CacheBase::DRRIP:
+      case CacheBase::DRRIP_QBS:
+         return new CacheSetDRRIP(cfgname, core_id, cache_type, associativity, blocksize, dynamic_cast<CacheSetInfoLRU*>(set_info), getNumQBSAttempts(policy, cfgname, core_id));
+
       case CacheBase::RANDOM:
          return new CacheSetRandom(cache_type, associativity, blocksize);
 
@@ -192,6 +197,8 @@ CacheSet::createCacheSetInfo(String name, String cfgname, core_id_t core_id, Str
       case CacheBase::SRRIP_QBS:
       case CacheBase::BRRIP:
       case CacheBase::BRRIP_QBS:
+      case CacheBase::DRRIP:
+      case CacheBase::DRRIP_QBS:
          return new CacheSetInfoLRU(name, cfgname, core_id, associativity, getNumQBSAttempts(policy, cfgname, core_id));
       default:
          return NULL;
@@ -206,6 +213,7 @@ CacheSet::getNumQBSAttempts(CacheBase::ReplacementPolicy policy, String cfgname,
       case CacheBase::LRU_QBS:
       case CacheBase::SRRIP_QBS:
       case CacheBase::BRRIP_QBS:
+      case CacheBase::DRRIP_QBS:
          return Sim()->getCfg()->getIntArray(cfgname + "/qbs/attempts", core_id);
       default:
          return 1;
@@ -237,6 +245,10 @@ CacheSet::parsePolicyType(String policy)
       return CacheBase::BRRIP;
    if (policy == "brrip_qbs")
       return CacheBase::BRRIP_QBS;
+   if (policy == "drrip")   
+      return CacheBase::DRRIP;
+   if (policy == "drrip_qbs")
+      return CacheBase::DRRIP_QBS;
 
    if (policy == "random")
       return CacheBase::RANDOM;

@@ -61,6 +61,8 @@ class CacheBase
          SRRIP_QBS,
          BRRIP,
          BRRIP_QBS,
+         DRRIP,
+         DRRIP_QBS,
          RANDOM,
          NUM_REPLACEMENT_POLICIES
       };
