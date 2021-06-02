@@ -7,7 +7,7 @@
 #include "cache.h"
 #define BRRIP_MAX 32
 #define Epoch_size 100000
-
+UInt8 brrip_counter=0;
 // DRRIP 
 
 CacheSetDRRIP::CacheSetDRRIP(
@@ -21,7 +21,6 @@ CacheSetDRRIP::CacheSetDRRIP(
    , m_num_attempts(num_attempts)
    , m_replacement_pointer(0)
    , m_set_info(set_info)
-   , brrip_counter(0) 
 {
    m_rrip_bits = new UInt8[m_associativity];		
    for (UInt32 i = 0; i < m_associativity; i++){

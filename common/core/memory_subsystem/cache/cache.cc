@@ -135,6 +135,8 @@ Cache::insertSingleLine(IntPtr addr, Byte* fill_buff,
    UInt32 set_index;
    splitAddress(addr, tag, set_index);
 
+   m_glob_set_id=set_index; //added
+
    CacheBlockInfo* cache_block_info = CacheBlockInfo::create(m_cache_type);
    cache_block_info->setTag(tag);
 
