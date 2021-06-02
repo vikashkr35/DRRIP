@@ -14,7 +14,7 @@
 #include "simulator.h"
 #include "config.h"
 #include "config.hpp"
-
+#include "cache.h"
 CacheSet::CacheSet(CacheBase::cache_t cache_type,
       UInt32 associativity, UInt32 blocksize):
       m_associativity(associativity), m_blocksize(blocksize)
@@ -98,11 +98,11 @@ CacheSet::invalidate(IntPtr& tag)
 }
 
 void
-CacheSet::insert(CacheBlockInfo* cache_block_info, Byte* fill_buff, bool* eviction, CacheBlockInfo* evict_block_info, Byte* evict_buff, CacheCntlr *cntlr)
+CacheSet::insert(CacheBlockInfo* cache_block_info, Byte* fill_buff, bool* eviction, CacheBlockInfo* evict_block_info, Byte* evict_buff, CacheCntlr *cntlr, UInt32 set_index)
 {
    // This replacement strategy does not take into account the fact that
    // cache blocks can be voluntarily flushed or invalidated due to another write request
-   const UInt32 index = getReplacementIndex(cntlr);
+   const UInt32 index = getReplacementIndex(cntlr,set_index);
    assert(index < m_associativity);
 
    assert(eviction != NULL);

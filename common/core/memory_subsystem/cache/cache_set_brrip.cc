@@ -30,7 +30,7 @@ CacheSetBRRIP::~CacheSetBRRIP()
 }
 
 UInt32
-CacheSetBRRIP::getReplacementIndex(CacheCntlr *cntlr)
+CacheSetBRRIP::getReplacementIndex(CacheCntlr *cntlr,UInt32 set_index)
 {
    for (UInt32 i = 0; i < m_associativity; i++)
    {

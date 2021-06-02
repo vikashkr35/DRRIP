@@ -39,4 +39,10 @@
  /home/vikash/research/SniperHybridCache/common/config/config.hpp \
  /home/vikash/research/SniperHybridCache/common/config/key.hpp \
  /home/vikash/research/SniperHybridCache/common/config/section.hpp \
- /home/vikash/research/SniperHybridCache/common/config/config_exceptions.hpp)
+ /home/vikash/research/SniperHybridCache/common/config/config_exceptions.hpp \
+ /home/vikash/research/SniperHybridCache/common/core/memory_subsystem/cache/cache.h \
+ /home/vikash/research/SniperHybridCache/common/misc/utils.h \
+ /home/vikash/research/SniperHybridCache/common/misc/hash_map_set.h \
+ /home/vikash/research/SniperHybridCache/common/performance_model/cache_perf_model.h \
+ /home/vikash/research/SniperHybridCache/common/performance_model/shmem_perf_model.h \
+ /home/vikash/research/SniperHybridCache/common/fault_injection/fault_injection.h)

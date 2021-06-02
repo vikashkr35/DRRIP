@@ -3,12 +3,12 @@
 #include "log.h"
 
 //global variables 
-	UInt32 m_glob_set_id;
-	UInt32 m_glob_epoch_ctr=0;
-	UInt32 m_glob_policy_flag=0;  ///BRRIP(flag==0),SRRIP(flag==1)
-	UInt64 m_glob_srrip_miss_ctr=0;
-	UInt64 m_glob_brrip_miss_ctr=0;
-// Cache class
+// 	UInt32 m_glob_set_id;
+// 	UInt32 m_glob_epoch_ctr=0;
+// 	UInt32 m_glob_policy_flag=0;  ///BRRIP(flag==0),SRRIP(flag==1)
+// 	UInt64 m_glob_srrip_miss_ctr=0;
+// 	UInt64 m_glob_brrip_miss_ctr=0;
+//  Cache class
 // constructors/destructors
 Cache::Cache(
    String name,
@@ -129,19 +129,19 @@ void
 Cache::insertSingleLine(IntPtr addr, Byte* fill_buff,
       bool* eviction, IntPtr* evict_addr,
       CacheBlockInfo* evict_block_info, Byte* evict_buff,
-      SubsecondTime now, CacheCntlr *cntlr)
+      SubsecondTime now, CacheCntlr *cntlr)  //set_index added (for DRRIP)
 {
    IntPtr tag;
    UInt32 set_index;
    splitAddress(addr, tag, set_index);
 
-   m_glob_set_id=set_index; //added
+   //m_glob_set_id=set_index; //added
 
    CacheBlockInfo* cache_block_info = CacheBlockInfo::create(m_cache_type);
    cache_block_info->setTag(tag);
 
    m_sets[set_index]->insert(cache_block_info, fill_buff,
-         eviction, evict_block_info, evict_buff, cntlr);
+         eviction, evict_block_info, evict_buff, cntlr,set_index);
    *evict_addr = tagToAddress(evict_block_info->getTag());
 
    if (m_fault_injector) {

@@ -11,7 +11,7 @@ class CacheSetDRRIP : public CacheSet
             UInt32 associativity, UInt32 blocksize, CacheSetInfoLRU* set_info, UInt8 num_attempts);
       ~CacheSetDRRIP();
 
-      UInt32 getReplacementIndex(CacheCntlr *cntlr);
+      UInt32 getReplacementIndex(CacheCntlr *cntlr, UInt32 set_index);
       void updateReplacementIndex(UInt32 accessed_index);
       int check_leader(UInt32 set_id);
    private:
@@ -22,7 +22,6 @@ class CacheSetDRRIP : public CacheSet
       UInt8* m_rrip_bits;
       UInt8  m_replacement_pointer;
       CacheSetInfoLRU* m_set_info;
-      UInt8 brrip_counter;
 };
 
 #endif 

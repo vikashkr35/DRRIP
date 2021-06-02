@@ -10,7 +10,7 @@ class CacheSetPLRU : public CacheSet
             UInt32 associativity, UInt32 blocksize);
       ~CacheSetPLRU();
 
-      UInt32 getReplacementIndex(CacheCntlr *cntlr);
+      UInt32 getReplacementIndex(CacheCntlr *cntlr,UInt32 set_index);
       void updateReplacementIndex(UInt32 accessed_index);
 
    private:

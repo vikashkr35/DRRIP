@@ -19,7 +19,7 @@ CacheSetPLRU::~CacheSetPLRU()
 }
 
 UInt32
-CacheSetPLRU::getReplacementIndex(CacheCntlr *cntlr)
+CacheSetPLRU::getReplacementIndex(CacheCntlr *cntlr,UInt32 set_index)
 {
    // Invalidations may mess up the LRU bits
 

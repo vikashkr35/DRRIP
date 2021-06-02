@@ -12,7 +12,7 @@ class CacheSetBRRIP : public CacheSet
             UInt32 associativity, UInt32 blocksize, CacheSetInfoLRU* set_info, UInt8 num_attempts);
       ~CacheSetBRRIP();
 
-      UInt32 getReplacementIndex(CacheCntlr *cntlr);
+      UInt32 getReplacementIndex(CacheCntlr *cntlr,UInt32 set_index);
       void updateReplacementIndex(UInt32 accessed_index);
 
    private:

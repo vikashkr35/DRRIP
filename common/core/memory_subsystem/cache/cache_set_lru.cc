@@ -22,7 +22,7 @@ CacheSetLRU::~CacheSetLRU()
 }
 
 UInt32
-CacheSetLRU::getReplacementIndex(CacheCntlr *cntlr)
+CacheSetLRU::getReplacementIndex(CacheCntlr *cntlr,UInt32 set_index)
 {
    // First try to find an invalid block
    for (UInt32 i = 0; i < m_associativity; i++)

@@ -8,6 +8,10 @@
 #define BRRIP_MAX 32
 #define Epoch_size 100000
 UInt8 brrip_counter=0;
+UInt32 m_glob_epoch_ctr=0;
+UInt32 m_glob_policy_flag=0;  ///BRRIP(flag==0),SRRIP(flag==1)
+UInt64 m_glob_srrip_miss_ctr=0;
+UInt64 m_glob_brrip_miss_ctr=0;
 // DRRIP 
 
 CacheSetDRRIP::CacheSetDRRIP(
@@ -36,7 +40,7 @@ CacheSetDRRIP::~CacheSetDRRIP()
 
 // This function returns victim index
 UInt32
-CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr)
+CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr, UInt32 set_index)
 {   
    if(cntlr->isLastLevel())
    {
@@ -67,7 +71,7 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr)
         }
    }
    
-   int leader = check_leader(m_glob_set_id); //  BRRIP(leader == 0) , BRRIP
+   int leader = check_leader(set_index); //  BRRIP(leader == 0) , BRRIP
 
     // Part 1
 
