@@ -6,8 +6,9 @@
 #include "log.h"
 #include "cache.h"
 #define BRRIP_MAX 32
-#define Epoch_size 100000
+#define Epoch_size 10
 UInt8 brrip_counter=0;
+UInt16 policy[3000];
 // DRRIP 
 
 CacheSetDRRIP::CacheSetDRRIP(
@@ -41,13 +42,14 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr)
    if(cntlr->isLastLevel())
    {
         UInt64 Num_Acc=cntlr->getNumaccess();
-        //printf("num_acc:%d\n",Num_Acc);
-        //printf("epoch:%d\n",m_glob_epoch_ctr);
         
+              //printf("num_acc:%d\n",Num_Acc);
         if ((Num_Acc-(Epoch_size*m_glob_epoch_ctr)) >= Epoch_size)  // epoch finished??
         {
 		      //printf("epoch num:%d___srrip:%d___srriplin:%d",m_glob_epoch_ctr,m_glob_srrip_miss_ctr,m_glob_srriplin_miss_ctr);
-        	   
+        	   printf("num_acc:%d\n",Num_Acc);
+            printf("epoch:%d\n",m_glob_epoch_ctr);
+
         	   m_glob_epoch_ctr++;		// increasing epoch
         	   
         	   if(m_glob_brrip_miss_ctr > m_glob_srrip_miss_ctr && m_glob_policy_flag < 1)
@@ -59,9 +61,12 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr)
 			      m_glob_policy_flag--;	// winner is brrip
             }
         	
-            //printf("____winner policy:%d\n",m_glob_policy_flag);
+            policy[m_glob_epoch_ctr]=  m_glob_policy_flag;
             
-            // reseting counters
+
+            printf("____winner policy:%d\n",m_glob_policy_flag);
+     
+            //reseting counters
             m_glob_srrip_miss_ctr = 0;
             m_glob_brrip_miss_ctr = 0;        
         }

@@ -30,6 +30,13 @@ CacheSetSRRIP::~CacheSetSRRIP()
 UInt32
 CacheSetSRRIP::getReplacementIndex(CacheCntlr *cntlr)
 {
+
+    
+   if(cntlr->isLastLevel())
+   {
+        UInt64 Num_Acc=cntlr->getNumaccess();
+        printf("num_acc:%d\n",Num_Acc);
+   }
    for (UInt32 i = 0; i < m_associativity; i++)
    {
       if (!m_cache_block_info_array[i]->isValid())
