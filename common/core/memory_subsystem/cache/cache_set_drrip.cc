@@ -45,12 +45,11 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr, UInt32 set_index)
    if(cntlr->isLastLevel())
    {
         UInt64 Num_Acc=cntlr->getNumaccess();
-        //printf("num_acc:%d\n",Num_Acc);
-        //printf("epoch:%d\n",m_glob_epoch_ctr);
+       
         
-        if ((Num_Acc-(Epoch_size*m_glob_epoch_ctr)) >= Epoch_size)  // epoch finished??
+        if ((Num_Acc-(Epoch_size*m_glob_epoch_ctr)) >= Epoch_size)  // epoch finished?
         {
-		      //printf("epoch num:%d___srrip:%d___srriplin:%d",m_glob_epoch_ctr,m_glob_srrip_miss_ctr,m_glob_srriplin_miss_ctr);
+		      printf("num_acc:%d___epoch num:%d___brrip_miss:%d___srrip_miss:%d", Num_Acc,m_glob_epoch_ctr,m_glob_brrip_miss_ctr,m_glob_srrip_miss_ctr);
         	   
         	   m_glob_epoch_ctr++;		// increasing epoch
         	   
@@ -63,7 +62,7 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr, UInt32 set_index)
 			      m_glob_policy_flag--;	// winner is brrip
             }
         	
-            //printf("____winner policy:%d\n",m_glob_policy_flag);
+            printf("____winner policy:%d\n",m_glob_policy_flag);
             
             // reseting counters
             m_glob_srrip_miss_ctr = 0;

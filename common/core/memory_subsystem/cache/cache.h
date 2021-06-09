@@ -75,6 +75,7 @@ class Cache : public CacheBase
 
       void enable() { m_enabled = true; }
       void disable() { m_enabled = false; }
+      UInt64 getNumAcc() {return m_num_accesses; }  //added v
 };
 
 template <class T>
