@@ -6,9 +6,9 @@
 #include "log.h"
 #include "cache.h"
 #define BRRIP_MAX 32
-#define Epoch_size 10
+#define Epoch_size 100000
 UInt8 brrip_counter=0;
-UInt16 policy[3000];
+UInt16 policy[30000];
 // DRRIP 
 
 CacheSetDRRIP::CacheSetDRRIP(
@@ -49,7 +49,8 @@ CacheSetDRRIP::getReplacementIndex(CacheCntlr *cntlr)
 		      //printf("epoch num:%d___srrip:%d___srriplin:%d",m_glob_epoch_ctr,m_glob_srrip_miss_ctr,m_glob_srriplin_miss_ctr);
         	   printf("num_acc:%d\n",Num_Acc);
             printf("epoch:%d\n",m_glob_epoch_ctr);
-
+            printf("brrip_miss:%d\n",m_glob_brrip_miss_ctr);
+            printf("srrip_miss:%d\n",m_glob_srrip_miss_ctr);
         	   m_glob_epoch_ctr++;		// increasing epoch
         	   
         	   if(m_glob_brrip_miss_ctr > m_glob_srrip_miss_ctr && m_glob_policy_flag < 1)
